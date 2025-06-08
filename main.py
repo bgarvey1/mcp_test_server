@@ -69,6 +69,11 @@ def list_tools():
     """List all available MCP tools."""
     return {"tools": list(tools.values())}
 
+@app.get("/tool/list")
+def list_tools_alt():
+    """Alternative endpoint for listing tools (for OpenAI Responses API compatibility)."""
+    return {"tools": list(tools.values())}
+
 @app.get("/tool/{tool_id}")
 def get_tool(tool_id: str):
     """Get metadata for a specific tool."""

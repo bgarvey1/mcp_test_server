@@ -74,6 +74,11 @@ def list_tools_alt():
     """Alternative endpoint for listing tools (for OpenAI Responses API compatibility)."""
     return {"tools": list(tools.values())}
 
+@app.get("/tools/list")
+def list_tools_alt2():
+    """Another alternative endpoint for listing tools (for OpenAI Responses API compatibility)."""
+    return {"tools": list(tools.values())}
+
 @app.get("/tool/{tool_id}")
 def get_tool(tool_id: str):
     """Get metadata for a specific tool."""

@@ -4,22 +4,10 @@ main.py
 Entry point for the MCP server using FastAPI and context7.
 """
 from fastapi import FastAPI, HTTPException, Request
-from fastapi.responses import JSONResponse
-from fastapi.middleware.cors import CORSMiddleware
-from typing import Dict, Any, List
-import json
-import os
+from typing import Dict
+from server import tools, server
 
 app = FastAPI(title="MCP Server")
-
-# Add CORS middleware to allow requests from OpenAI
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # Allow all origins
-    allow_credentials=True,
-    allow_methods=["*"],  # Allow all methods
-    allow_headers=["*"],  # Allow all headers
-)
 
 # In-memory resource and tool registries for demonstration
 resources = {
@@ -98,50 +86,18 @@ async def list_tools_alt2(request: Request):
     print(f"[DEBUG] Request query params: {request.query_params}")
     return {"tools": list(tools.values())}
 
-@app.get("/mcp/tools")
-async def mcp_list_tools(request: Request):
-    """MCP-specific endpoint for listing tools."""
-    print(f"[DEBUG] /mcp/tools endpoint called")
+@app.get("/tools/list")
+async def tools_list(request: Request):
+    """Standard MCP endpoint for listing tools."""
+    print(f"[DEBUG] /tools/list endpoint called")
     print(f"[DEBUG] Request headers: {request.headers}")
     print(f"[DEBUG] Request query params: {request.query_params}")
     return {"tools": list(tools.values())}
 
-@app.get("/calculator/tools")
-async def calculator_list_tools(request: Request):
-    """Server-label specific endpoint for listing tools."""
-    print(f"[DEBUG] /calculator/tools endpoint called")
-    print(f"[DEBUG] Request headers: {request.headers}")
-    print(f"[DEBUG] Request query params: {request.query_params}")
-    return {"tools": list(tools.values())}
-
-@app.get("/mcp_calculator/tools")
-async def mcp_calculator_list_tools(request: Request):
-    """Server-label specific endpoint for mcp_calculator."""
-    print(f"[DEBUG] /mcp_calculator/tools endpoint called")
-    print(f"[DEBUG] Request headers: {request.headers}")
-    print(f"[DEBUG] Request query params: {request.query_params}")
-    return {"tools": list(tools.values())}
-
-@app.get("/mcp_calculator/tools/list")
-async def mcp_calculator_list_tools_alt(request: Request):
-    """Alternative server-label specific endpoint for mcp_calculator."""
-    print(f"[DEBUG] /mcp_calculator/tools/list endpoint called")
-    print(f"[DEBUG] Request headers: {request.headers}")
-    print(f"[DEBUG] Request query params: {request.query_params}")
-    return {"tools": list(tools.values())}
-
-@app.get("/mcp_server/tools")
-async def mcp_server_list_tools(request: Request):
-    """Server-label specific endpoint for mcp_server."""
-    print(f"[DEBUG] /mcp_server/tools endpoint called")
-    print(f"[DEBUG] Request headers: {request.headers}")
-    print(f"[DEBUG] Request query params: {request.query_params}")
-    return {"tools": list(tools.values())}
-
-@app.get("/mcp_server/tools/list")
-async def mcp_server_list_tools_alt(request: Request):
-    """Alternative server-label specific endpoint for mcp_server."""
-    print(f"[DEBUG] /mcp_server/tools/list endpoint called")
+@app.get("/calculator/tools/list")
+async def calculator_tools_list(request: Request):
+    """Server-label specific endpoint for OpenAI Responses API MCP integration."""
+    print(f"[DEBUG] /calculator/tools/list endpoint called")
     print(f"[DEBUG] Request headers: {request.headers}")
     print(f"[DEBUG] Request query params: {request.query_params}")
     return {"tools": list(tools.values())}

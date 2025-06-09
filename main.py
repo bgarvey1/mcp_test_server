@@ -70,13 +70,35 @@ def list_tools():
     return {"tools": list(tools.values())}
 
 @app.get("/tool/list")
-def list_tools_alt():
+async def list_tools_alt(request: Request):
     """Alternative endpoint for listing tools (for OpenAI Responses API compatibility)."""
+    print(f"[DEBUG] /tool/list endpoint called")
+    print(f"[DEBUG] Request headers: {request.headers}")
+    print(f"[DEBUG] Request query params: {request.query_params}")
     return {"tools": list(tools.values())}
 
 @app.get("/tools/list")
-def list_tools_alt2():
+async def list_tools_alt2(request: Request):
     """Another alternative endpoint for listing tools (for OpenAI Responses API compatibility)."""
+    print(f"[DEBUG] /tools/list endpoint called")
+    print(f"[DEBUG] Request headers: {request.headers}")
+    print(f"[DEBUG] Request query params: {request.query_params}")
+    return {"tools": list(tools.values())}
+
+@app.get("/mcp/tools")
+async def mcp_list_tools(request: Request):
+    """MCP-specific endpoint for listing tools."""
+    print(f"[DEBUG] /mcp/tools endpoint called")
+    print(f"[DEBUG] Request headers: {request.headers}")
+    print(f"[DEBUG] Request query params: {request.query_params}")
+    return {"tools": list(tools.values())}
+
+@app.get("/calculator/tools")
+async def calculator_list_tools(request: Request):
+    """Server-label specific endpoint for listing tools."""
+    print(f"[DEBUG] /calculator/tools endpoint called")
+    print(f"[DEBUG] Request headers: {request.headers}")
+    print(f"[DEBUG] Request query params: {request.query_params}")
     return {"tools": list(tools.values())}
 
 @app.get("/tool/{tool_id}")

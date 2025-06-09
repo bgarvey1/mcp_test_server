@@ -101,6 +101,22 @@ async def calculator_list_tools(request: Request):
     print(f"[DEBUG] Request query params: {request.query_params}")
     return {"tools": list(tools.values())}
 
+@app.get("/mcp_calculator/tools")
+async def mcp_calculator_list_tools(request: Request):
+    """Server-label specific endpoint for mcp_calculator."""
+    print(f"[DEBUG] /mcp_calculator/tools endpoint called")
+    print(f"[DEBUG] Request headers: {request.headers}")
+    print(f"[DEBUG] Request query params: {request.query_params}")
+    return {"tools": list(tools.values())}
+
+@app.get("/mcp_calculator/tools/list")
+async def mcp_calculator_list_tools_alt(request: Request):
+    """Alternative server-label specific endpoint for mcp_calculator."""
+    print(f"[DEBUG] /mcp_calculator/tools/list endpoint called")
+    print(f"[DEBUG] Request headers: {request.headers}")
+    print(f"[DEBUG] Request query params: {request.query_params}")
+    return {"tools": list(tools.values())}
+
 @app.get("/tool/{tool_id}")
 def get_tool(tool_id: str):
     """Get metadata for a specific tool."""

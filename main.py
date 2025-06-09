@@ -4,9 +4,22 @@ main.py
 Entry point for the MCP server using FastAPI and context7.
 """
 from fastapi import FastAPI, HTTPException, Request
-from typing import Dict
+from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
+from typing import Dict, Any, List
+import json
+import os
 
 app = FastAPI(title="MCP Server")
+
+# Add CORS middleware to allow requests from OpenAI
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allow all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all methods
+    allow_headers=["*"],  # Allow all headers
+)
 
 # In-memory resource and tool registries for demonstration
 resources = {
